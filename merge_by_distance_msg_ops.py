@@ -29,13 +29,14 @@ class MERGE_BY_DISTANCE_MSG_OT_main(Operator):
 
     def execute(self, context):
         # vertices before merge
+        bpy.context.object.update_from_editmode()
         vertices_before = len(context.object.data.vertices)
         # execute base merge
         bpy.ops.mesh.remove_doubles(
             threshold=self.threshold
         )
-        bpy.context.object.update_from_editmode()
         # new count of vertices
+        bpy.context.object.update_from_editmode()
         vertices_after = len(context.object.data.vertices)
         msg = f'Removed {vertices_before - vertices_after} vertices'
         # message
@@ -73,7 +74,7 @@ class MERGE_BY_DISTANCE_MSG_OT_main(Operator):
 
     @staticmethod
     def draw_msg(font_id, message):
-        blf.position(font_id, 100, 100, 0)
+        blf.position(font_id, 100, 150, 0)
         blf.size(font_id, 14)
         blf.color(font_id, 1.0, 1.0, 1.0, 1)
         blf.draw(font_id, message)
